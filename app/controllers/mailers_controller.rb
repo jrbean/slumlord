@@ -11,6 +11,7 @@ class MailersController < ApplicationController
       end
     else
       render json: { error: "You must login." }
+    end
   end
 
   def tenant_mail
