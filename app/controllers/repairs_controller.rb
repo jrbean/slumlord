@@ -1,7 +1,7 @@
 class RepairsController < ApplicationController
 
   def show
-    @repairs = Repair.all
+    @repairs = Repair.find body_params[:id]
   end
 
   def index
@@ -15,7 +15,7 @@ class RepairsController < ApplicationController
   def create
     @repair = Repair.create(
       tenant: current_user,
-      description: params[:description],
+      description: body_params[:description],
       submitted_at: Time.now
     )
   end

@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   root 'repairs#index'
 
+  post '/mail' => 'mailers#manager_mail'
+  put '/mail' => 'mailers#tenant_mail'
 end

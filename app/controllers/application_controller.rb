@@ -11,4 +11,10 @@ private
     request.format = :json
   end
 
+
+  def body_params
+    request.body.rewind
+    JSON.parse(request.body.read).with_indifferent_access
+  end
+
 end
