@@ -12,9 +12,9 @@ private
   end
 
 
-  def body_params
-    request.body.rewind
-    JSON.parse(request.body.read).with_indifferent_access
-  end
+  # def body_params
+  #   request.body.rewind
+  #   JSON.parse(request.body.read).with_indifferent_access
+  # end
 
 end

@@ -1,27 +1,43 @@
 class RepairsController < ApplicationController
 
+  skip_before_action :verify_authenticity_token
+
   def show
-    @repairs = Repair.find body_params[:id]
+    @repairs = Repair.find params[:id]
   end
 
   def index
-    if current_user.is_manager
-      @repairs = Repair.all
+    if current_user
+      if current_user.is_manager
+        @repairs = Repair.all
+      else
+        @repairs = current_user.tenant_repairs
+      end
     else
-      @repairs = current_user.tenant_repairs
+      render json: { error: "You must login."}
     end
   end
 
   def create
     @repair = Repair.create(
       tenant: current_user,
-      description: body_params[:description],
+      description: params[:description],
       submitted_at: Time.now
     )
+    head :ok
   end
 
   def update
-    @repair = Repair.update(completed_at: Time.now)
+    if current_user
+      if current_user.is_manager
+        @repair = Repair.update(completed_at: Time.now)
+      else
+        render json: { error: "Only managers can do that." }
+      end
+    else
+      render json: { error: "You must login." }
+    end
+    head :ok
   end
 
 end
