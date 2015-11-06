@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
     @recipient_email = recipient_email
     @body = body
     mail(to: recipient_email,
-     body: body
+     body: body,
      subject: 'Request from #{current_user}')
   end
 
