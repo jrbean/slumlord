@@ -30,7 +30,11 @@ class RepairsController < ApplicationController
   def update
     if current_user
       if current_user.is_manager
-        @repair = Repair.update(completed_at: Time.now)
+        @repair = Repair.find params[:id]
+        @repair.update(
+          completed_at: Time.now,
+          manager_id: current_user.id
+          )
       else
         render json: { error: "Only managers can do that." }
       end
