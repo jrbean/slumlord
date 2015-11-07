@@ -1,12 +1,11 @@
 class UserMailer < ApplicationMailer
 
-  def request(recipient_email, body, subject)
-    @recipient_email = recipient_email
-    @body = body
+  def request(user, recipient_email, body)
     mail(
      to: recipient_email,
      body: body,
-     subject: 'Request from #{current_user.name}'
+     content_type: "text/plain",
+     subject: "Request from #{user.name}"
      )
   end
 
